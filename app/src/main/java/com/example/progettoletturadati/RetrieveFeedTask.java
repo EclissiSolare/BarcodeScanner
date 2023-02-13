@@ -27,7 +27,7 @@ public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
     private Response response;
     private String codiceBarre;
     private Item item;
-    private String responseBody;
+    public static String responseBody;
 
     public RetrieveFeedTask(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -59,10 +59,13 @@ public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
         try {
             Response response = client.newCall(request).execute();
             responseBody = response.body().string();
-            System.out.println(responseBody);
+
+            Singleton.getInstance().setJSON(responseBody);
+
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             item = gson.fromJson(responseBody, Item.class);
+
 
         } catch (IOException e) {
             e.printStackTrace();

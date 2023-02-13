@@ -4,6 +4,8 @@ public class Singleton {
     private static Singleton instance;
     private String string;
 
+    private String JSON;
+
     private Singleton() {}
 
     public static Singleton getInstance() {
@@ -19,6 +21,14 @@ public class Singleton {
 
     public void setString(String string) {
         this.string = string;
+    }
+
+    public String getJSON() {
+        return JSON;
+    }
+
+    public void setJSON(String JSON) {
+        this.JSON = JSON;
     }
 }
 

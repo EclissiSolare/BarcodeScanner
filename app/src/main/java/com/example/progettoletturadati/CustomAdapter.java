@@ -35,8 +35,8 @@ public class CustomAdapter extends ArrayAdapter<DataModel> {
         }
 
         DataModel item = mData.get(position);
-        holder.text1.setText(item.getText1());
-        holder.text2.setText(item.getText2());
+        holder.text1.setText(item.getData1());
+        holder.text2.setText(item.getData2());
 
         return convertView;
     }

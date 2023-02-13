@@ -224,24 +224,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupEditTextListener() {
-        EditText editText = (EditText) findViewById(R.id.editText);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String s;
-                    if (String.valueOf(v).length() == 13){
-                        s = "ean13";
-                    } else {
-                        s = "code128";
-                    }
-                    addData(String.valueOf(v), s);
-                    v.setText("");
-                    return true;
-                }
-                v.setText("");
-                return false;
+        EditText editText = findViewById(R.id.editText);
+        editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String a = v.getText().toString();
+                addData(a);
+                Singleton.getInstance().setString(a);
+                return true;
             }
+            return false;
         });
     }
 
@@ -250,35 +241,36 @@ public class MainActivity extends AppCompatActivity {
         // store decoded data
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
         // store decoder type
-        String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
-        addData(decodedData,decodedLabelType);
+        addData(decodedData);
+
         Singleton.getInstance().setString(decodedData);
     }
 
     private Set<String> mData = new HashSet<>();
 
     //metodo richiamato per aggiungere dentro l'arraylist
-    public void addData(String data1, String data2){
-        EditText editText = (EditText) findViewById(R.id.editText);
+    public void addData(String data1){
+        EditText editText = findViewById(R.id.editText);
         mListView = (ListView) findViewById(R.id.listView);
-        String key = data1 + data2;
+        String key = data1;
+        DataModel dataModel = new DataModel();
+
         if (!mData.contains(key)){
             mData.add(key);
-            data.add(new DataModel(data1,data2));
+            dataModel.setData1(data1);
         }
         mAdapter = new CustomAdapter(this, data);
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-        createAndShowAlertDialog();
-        editText.setText("");
+
         clearData(mListView);
+        editText.setText("");
+        createAndShowAlertDialog();
     }
+
     private void createAndShowAlertDialog() {
         new RetrieveFeedTask(this).execute();
     }
-
-
-
 
     //svuota l'arraylist
     public void clearData(View view) {

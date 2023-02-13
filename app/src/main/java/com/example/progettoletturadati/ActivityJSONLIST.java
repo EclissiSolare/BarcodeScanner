@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.service.autofill.SaveInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,14 +29,18 @@ import java.util.Map;
 
 public class ActivityJSONLIST extends AppCompatActivity {
 
+    private String jsonString;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jsonlist);
 
         try {
+            jsonString= Singleton.getInstance().getJSON();
+
             // Parse the JSON object
-            JSONObject json = new JSONObject();
+            JSONObject json = new JSONObject(jsonString);
 
             // Get all the keys in the JSON object
             Iterator<String> keys = json.keys();

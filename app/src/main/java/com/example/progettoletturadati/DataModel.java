@@ -1,23 +1,22 @@
 package com.example.progettoletturadati;
 
 public class DataModel {
+    private String data1;
+    private String data2;
 
-    private String mText1;
-    private String mText2;
-
-    public DataModel(String text1, String text2) {
-        mText1 = text1;
-        mText2 = text2;
+    public String getData1() {
+        return data1;
     }
 
-    public String getText1() {
-        return mText1;
+    public void setData1(String data1) {
+        this.data1 = data1;
     }
 
-    public String getText2() {
-        return mText2;
+    public String getData2() {
+        return data2;
     }
 
-
-
+    public void setData2(String data2) {
+        this.data2 = data2;
+    }
 }
