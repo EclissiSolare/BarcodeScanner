@@ -2,30 +2,20 @@ package com.example.progettoletturadati;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.service.autofill.SaveInfo;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.SimpleExpandableListAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.progettoletturadati.prova.Child;
+import com.example.progettoletturadati.prova.CustomExpandableListAdapter;
+import com.example.progettoletturadati.prova.Group;
+import com.example.progettoletturadati.prova.Singleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ActivityJSONLIST extends AppCompatActivity {
 

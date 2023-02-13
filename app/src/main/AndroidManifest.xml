@@ -29,6 +29,17 @@
 
         <activity
             android:name="com.example.progettoletturadati.ActivityJSONLIST"
+            android:parentActivityName="com.example.progettoletturadati.ActivityEAN"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.progettoletturadati.ActivityEAN"
+            android:parentActivityName="com.example.progettoletturadati.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.progettoletturadati.ActivityLabels"
+            android:parentActivityName="com.example.progettoletturadati.MainActivity"
             android:exported="false" />
 
         <activity

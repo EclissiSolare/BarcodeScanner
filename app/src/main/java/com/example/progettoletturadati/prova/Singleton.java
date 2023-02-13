@@ -1,4 +1,4 @@
-package com.example.progettoletturadati;
+package com.example.progettoletturadati.prova;
 
 public class Singleton {
     private static Singleton instance;

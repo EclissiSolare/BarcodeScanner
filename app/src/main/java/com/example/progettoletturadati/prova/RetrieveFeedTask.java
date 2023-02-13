@@ -1,12 +1,12 @@
-package com.example.progettoletturadati;
+package com.example.progettoletturadati.prova;
 
 
 import android.content.Intent;
 import android.os.AsyncTask;
 
 
-import androidx.appcompat.app.AlertDialog;
-
+import com.example.progettoletturadati.ActivityEAN;
+import com.example.progettoletturadati.ActivityJSONLIST;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,25 +23,25 @@ import okhttp3.Response;
 public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
-    private MainActivity mainActivity;
+    private ActivityEAN activityEAN;
     private Response response;
     private String codiceBarre;
     private Item item;
     public static String responseBody;
 
-    public RetrieveFeedTask(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public RetrieveFeedTask(ActivityEAN activityean) {
+        this.activityEAN = activityean;
     }
 
-    public RetrieveFeedTask(MainActivity mainActivity, String codiceBarre) {
-        this.mainActivity = mainActivity;
+    public RetrieveFeedTask(ActivityEAN activityean, String codiceBarre) {
+        this.activityEAN = activityean;
         this.codiceBarre = codiceBarre;
     }
 
     protected void onPostExecute(String result) {
-        Intent intent = new Intent(mainActivity, ActivityJSONLIST.class);
+        Intent intent = new Intent(activityEAN, ActivityJSONLIST.class);
         intent.putExtra("json", (Serializable) item);
-        mainActivity.startActivity(intent);
+        activityEAN.startActivity(intent);
     }
 
 

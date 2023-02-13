@@ -1,4 +1,4 @@
-package com.example.progettoletturadati;
+package com.example.progettoletturadati.prova;
 
 public class DataModel {
     private String data1;

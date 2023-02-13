@@ -1,4 +1,6 @@
-package com.example.progettoletturadati;
+package com.example.progettoletturadati.prova;
+
+import com.example.progettoletturadati.prova.Child;
 
 import java.util.ArrayList;
 import java.util.List;
