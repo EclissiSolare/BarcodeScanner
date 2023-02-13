@@ -19,6 +19,6 @@ public class TitleActivity extends AppCompatActivity {
             startActivity(new Intent(TitleActivity.this, MainActivity.class));
             finish();
             }
-        }, 3000);
+        }, 1500);
     }
 }
