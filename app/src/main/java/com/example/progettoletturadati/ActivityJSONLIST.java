@@ -95,6 +95,8 @@ public class ActivityJSONLIST extends AppCompatActivity {
             }
             ExpandableListView expandableListView = findViewById(R.id.listView);
 
+            expandableListView.setGroupIndicator(null);
+
             // Create an adapter for the ExpandableListView
             CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(this, groupList);
 

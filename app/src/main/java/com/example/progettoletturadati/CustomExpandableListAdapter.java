@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -18,7 +16,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Group> groups;
 
     TextView childNameTextView;
-    TextView childValueTextView;
+
 
     public CustomExpandableListAdapter(Context context, List<Group> groups) {
         this.context = context;
@@ -66,32 +64,50 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         Group group = (Group) getGroup(groupPosition);
         TextView groupNameTextView = convertView.findViewById(R.id.groupTitle);
-        TextView groupValueTextView=convertView.findViewById(R.id.groupValue);
-        groupNameTextView.setText(group.getGroupName());
-        groupValueTextView.setText((CharSequence) group.getGroupValue());
+
+        if (group.getGroupValue() != null) {
+            groupNameTextView.setText(group.getGroupName() + ": " + group.getGroupValue());
+        } else {
+            groupNameTextView.setText(group.getGroupName()+":");
+        }
+
+        ImageView img= (ImageView) convertView.findViewById(R.id.imageView);
+
+        if(isExpanded==true){
+            img.setRotation(90);
+        }else if (isExpanded==false){
+            img.setRotation(0);
+        }
+
+        if (group.getGroupValue() == null) {
+            img.setVisibility(View.VISIBLE);
+        } else {
+            img.setVisibility(View.GONE);
+
+        }
 
         return convertView;
     }
 
+
+
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item2, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_child, parent, false);
         }
 
         Child child = (Child) getChild(groupPosition, childPosition);
         childNameTextView = convertView.findViewById(R.id.childTitle);
-        childValueTextView = convertView.findViewById(R.id.childValue);
-        //Toast.makeText(context,child.getChildName()+"--->"+child.getChildValue(),Toast.LENGTH_LONG).show();
-        childNameTextView.setText(child.getChildName());
-        childValueTextView.setText(child.getChildValue());
+        childNameTextView.setText(child.getChildName()+":  "+child.getChildValue());
 
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
+
 
 
 

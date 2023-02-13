@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private ListView mListView;
-    private CustomAdapter mAdapter;
+
     private static final String EXTRA_PROFILENAME = "DWDataCapture1";
     // DataWedge Extras
     private static final String EXTRA_GET_VERSION_INFO = "com.symbol.datawedge.api.GET_VERSION_INFO";
@@ -259,9 +259,7 @@ public class MainActivity extends AppCompatActivity {
             mData.add(key);
             dataModel.setData1(data1);
         }
-        mAdapter = new CustomAdapter(this, data);
-        mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+
 
         clearData(mListView);
         editText.setText("");
@@ -278,8 +276,6 @@ public class MainActivity extends AppCompatActivity {
         List<DataModel> data2 = new ArrayList<>();
         mData.clear();
         data.clear();
-        mAdapter = new CustomAdapter(this, data2);
-        mListView.setAdapter(mAdapter);
     }
     //bundle
     private void sendDataWedgeIntentWithExtra(String action, String extraKey, Bundle extras)
