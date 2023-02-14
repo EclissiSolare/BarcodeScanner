@@ -12,7 +12,8 @@
         android:layout_width="360dp"
         android:layout_height="26dp"
         android:textSize="16sp"
-        android:textColor="#FF0000"
+        android:textColor="@color/turchese"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -30,7 +31,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow" />
+        app:srcCompat="@drawable/ic_arrow"
+        app:tint="@color/turchese" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
