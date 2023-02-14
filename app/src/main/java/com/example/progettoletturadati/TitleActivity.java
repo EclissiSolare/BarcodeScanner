@@ -3,6 +3,7 @@ package com.example.progettoletturadati;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -20,5 +21,9 @@ public class TitleActivity extends AppCompatActivity {
             finish();
             }
         }, 1500);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("Barcode Scanner");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
     }
 }

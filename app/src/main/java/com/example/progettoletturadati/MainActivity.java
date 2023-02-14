@@ -2,6 +2,7 @@ package com.example.progettoletturadati;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Imposta la ActionBar personalizzata
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
 
     }
 
