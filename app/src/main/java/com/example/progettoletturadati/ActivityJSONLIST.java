@@ -7,6 +7,7 @@ import android.widget.ExpandableListView;
 
 import com.example.progettoletturadati.prova.Child;
 import com.example.progettoletturadati.prova.CustomExpandableListAdapter;
+import com.example.progettoletturadati.prova.GrandChild;
 import com.example.progettoletturadati.prova.Group;
 import com.example.progettoletturadati.prova.Singleton;
 
@@ -67,6 +68,7 @@ public class ActivityJSONLIST extends AppCompatActivity {
 
                         // Create a Child object for the nested key/value pair
                         Child child = new Child();
+                        GrandChild grandChild=new GrandChild();
                         child.setChildName(nestedKey);
                         child.setChildValue(nestedValue.toString());
                         // Add the Child object to the child data list

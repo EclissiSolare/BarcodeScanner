@@ -3,7 +3,6 @@ package com.example.progettoletturadati.prova;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.progettoletturadati.ActivityEAN;
 import com.example.progettoletturadati.ActivityJSONLIST;
 import com.example.progettoletturadati.ActivityLabels;
 import com.google.gson.Gson;
@@ -23,7 +22,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
     private ActivityLabels activityLabels;
     private Response response;
     private String codiceBarre;
-    private Labels labels;
+    private Item labels;
     public static String responseBody;
 
     public RetrieveFeedTask2(ActivityLabels activitylabels) {
@@ -61,7 +60,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
 
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            labels = gson.fromJson(responseBody, Labels.class);
+            labels = gson.fromJson(responseBody, Item.class);
 
 
         } catch (IOException e) {
@@ -71,7 +70,20 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
         return "";
     }
 
-
+    class Item implements Serializable{
+        String itemId;
+        String modificationDate;
+        Object deletionDate;
+        RetrieveFeedTask.Custom custom;
+        String name;
+        String id;
+        String storeId;
+        String creationDate;
+        Object extended;
+        RetrieveFeedTask.Matching matching;
+        String status;
+        float _score;
+    }
     class Labels implements Serializable{
          String storeId;
          Date creationDate;
@@ -118,7 +130,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
         List<Object> items;
         Object extended;
     }
-    class Scenario implements Serializable{
+    static class Scenario implements Serializable{
         String name;
         Object automaticScenarioId;
         Object automaticScenarioName;

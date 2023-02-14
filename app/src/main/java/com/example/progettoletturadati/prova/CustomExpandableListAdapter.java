@@ -8,6 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.progettoletturadati.R;
 
 import java.util.List;
@@ -102,8 +104,26 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         childNameTextView = convertView.findViewById(R.id.childTitle);
         childNameTextView.setText(child.getChildName()+":  "+child.getChildValue());
 
+        // Gestione grandChild
+        ConstraintLayout grandChildLayout = convertView.findViewById(R.id.layoutGrandChild);
+
+
+        List<GrandChild> grandChildren = child.getGrandChildren();
+        if (grandChildren != null) {
+            for (GrandChild grandChild : grandChildren) {
+                View grandChildView = LayoutInflater.from(context).inflate(R.layout.list_grandchild, null);
+                TextView grandChildNameTextView = grandChildView.findViewById(R.id.grandChildTitle);
+
+
+                grandChildNameTextView.setText(grandChild.getGrandChildName() + ": "+grandChild.getGrandChildValue());
+
+                grandChildLayout.addView(grandChildView);
+            }
+        }
+
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
