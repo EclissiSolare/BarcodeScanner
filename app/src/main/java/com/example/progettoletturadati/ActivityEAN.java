@@ -1,9 +1,7 @@
 package com.example.progettoletturadati;
 
 import static android.provider.ContactsContract.Intents.Insert.ACTION;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +14,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.progettoletturadati.prova.DataModel;
 import com.example.progettoletturadati.prova.RetrieveFeedTask;
 import com.example.progettoletturadati.prova.Singleton;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityEAN extends AppCompatActivity {
     private ListView mListView;
@@ -111,6 +113,34 @@ public class ActivityEAN extends AppCompatActivity {
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_GET_VERSION_INFO, EXTRA_EMPTY);    // must be called after registering BroadcastReceiver
 
         setupEditTextListener();
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.ean);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId())
+                {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.ean:
+                        return true;
+                    case R.id.labels:
+                        startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ean"
+        android:title="Scan EAN"
+        android:icon="@drawable/ean"/>
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+
+    <item
+        android:id="@+id/labels"
+        android:title="Scan Labels"
+        android:icon="@drawable/label"/>
+
+</menu>
