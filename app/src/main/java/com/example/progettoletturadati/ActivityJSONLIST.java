@@ -2,6 +2,7 @@ package com.example.progettoletturadati;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
@@ -98,5 +99,8 @@ public class ActivityJSONLIST extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Data");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
     }
 }
