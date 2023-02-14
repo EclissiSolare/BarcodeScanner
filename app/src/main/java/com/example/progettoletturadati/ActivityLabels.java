@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.progettoletturadati.prova.DataModel;
 import com.example.progettoletturadati.prova.RetrieveFeedTask;
+import com.example.progettoletturadati.prova.RetrieveFeedTask2;
 import com.example.progettoletturadati.prova.Singleton;
 
 import java.util.ArrayList;
@@ -210,7 +211,7 @@ public class ActivityLabels extends AppCompatActivity {
                                 // Change in scanner status occurred
                                 String displayScannerStatusText = extras.getString(EXTRA_KEY_VALUE_NOTIFICATION_STATUS);
                                 //Toast.makeText(getApplicationContext(), displayScannerStatusText, Toast.LENGTH_SHORT).show();
-                                final TextView lblScannerStatus = (TextView) findViewById(R.id.txtStatus);
+                                final TextView lblScannerStatus = (TextView) findViewById(R.id.txtStatusLAbels);
                                 lblScannerStatus.setText(displayScannerStatusText);
                                 break;
                             case EXTRA_KEY_VALUE_PROFILE_SWITCH:
@@ -230,7 +231,7 @@ public class ActivityLabels extends AppCompatActivity {
 
 
     private void setupEditTextListener() {
-        EditText editText = findViewById(R.id.editText);
+        EditText editText = findViewById(R.id.editTextLabels);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
@@ -256,7 +257,7 @@ public class ActivityLabels extends AppCompatActivity {
 
     //metodo richiamato per aggiungere dentro l'arraylist
     public void addData(String data1){
-        EditText editText = findViewById(R.id.editText);
+        EditText editText = findViewById(R.id.editTextLabels);
         mListView = (ListView) findViewById(R.id.listView);
         String key = data1;
         DataModel dataModel = new DataModel();
@@ -267,13 +268,13 @@ public class ActivityLabels extends AppCompatActivity {
         }
 
 
-        clearData(mListView);
+
         editText.setText("");
         createAndShowAlertDialog();
     }
 
     private void createAndShowAlertDialog() {
-        new RetrieveFeedTask(this).execute();
+        new RetrieveFeedTask2(this).execute();
     }
 
     //svuota l'arraylist
