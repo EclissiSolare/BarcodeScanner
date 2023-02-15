@@ -5,10 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.progettoletturadati.R;
 
@@ -18,14 +17,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<Group> groups;
-
-    TextView childNameTextView;
-
-
+    ExpandableListView expandableListView;
     public CustomExpandableListAdapter(Context context, List<Group> groups) {
         this.context = context;
         this.groups = groups;
     }
+
+
 
     @Override
     public int getGroupCount() {
@@ -47,6 +45,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return groups.get(groupPosition).getChildren().get(childPosition);
     }
 
+    public Object getGrandChild(int groupPosition, int childPosition, int grandChildPosition) {
+        return groups.get(groupPosition).getChildren().get(childPosition).getGrandChildren().get(grandChildPosition);
+    }
+
     @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
@@ -57,11 +59,17 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+
+    public long getGrandChildId(int groupPosition, int childPosition, int grandChildPosition) {
+        return grandChildPosition;
+    }
+
     @Override
     public boolean hasStableIds() {
         return false;
     }
 
+    @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_group, parent, false);
@@ -72,14 +80,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if (group.getGroupValue() != null) {
             groupNameTextView.setText(group.getGroupName() + ": " + group.getGroupValue());
         } else {
-            groupNameTextView.setText(group.getGroupName()+":");
+            groupNameTextView.setText(group.getGroupName() + ":");
         }
 
-        ImageView img= (ImageView) convertView.findViewById(R.id.imageView);
+        ImageView img = convertView.findViewById(R.id.imageView);
 
-        if(isExpanded==true){
+        if (isExpanded) {
             img.setRotation(90);
-        }else if (isExpanded==false){
+        } else {
             img.setRotation(0);
         }
 
@@ -87,51 +95,50 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             img.setVisibility(View.VISIBLE);
         } else {
             img.setVisibility(View.GONE);
-
         }
 
         return convertView;
     }
 
-
-
+    @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_child, parent, false);
         }
 
         Child child = (Child) getChild(groupPosition, childPosition);
-        childNameTextView = convertView.findViewById(R.id.childTitle);
-        childNameTextView.setText(child.getChildName()+":  "+child.getChildValue());
-
-        // Gestione grandChild
-        ConstraintLayout grandChildLayout = convertView.findViewById(R.id.layoutGrandChild);
+        TextView childNameTextView = convertView.findViewById(R.id.childTitle);
 
 
-        List<GrandChild> grandChildren = child.getGrandChildren();
-        if (grandChildren != null) {
-            for (GrandChild grandChild : grandChildren) {
-                View grandChildView = LayoutInflater.from(context).inflate(R.layout.list_grandchild, null);
-                TextView grandChildNameTextView = grandChildView.findViewById(R.id.grandChildTitle);
+        if (child.getChildValue() != null) {
+            childNameTextView.setText(child.getChildName() + ": " + child.getChildValue());
 
+        } else {
+            childNameTextView.setText(child.getChildName() + ":");
+        }
 
-                grandChildNameTextView.setText(grandChild.getGrandChildName() + ": "+grandChild.getGrandChildValue());
+        ImageView img = convertView.findViewById(R.id.imageViewgrandchild);
 
-                grandChildLayout.addView(grandChildView);
-            }
+        if (isLastChild) {
+            img.setRotation(90);
+        } else {
+            img.setRotation(0);
+        }
+
+        if (child.getChildValue() == null) {
+            img.setVisibility(View.VISIBLE);
+        } else {
+            img.setVisibility(View.GONE);
         }
 
         return convertView;
+
     }
 
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
-
-
-
-
 
 }
