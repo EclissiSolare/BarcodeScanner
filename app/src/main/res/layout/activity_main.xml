@@ -12,16 +12,16 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="240dp"
-            android:layout_height="235dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26"
-            app:srcCompat="@raw/logobianco" />
+        <androidx.recyclerview.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:id="@+id/recyclerView"
+            tools:context="example.javatpoint.com.recyclerviewlist.MainActivity">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
