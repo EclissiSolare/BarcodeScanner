@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -63,7 +64,7 @@ public class ActivityLabels extends AppCompatActivity {
     final String LOG_TAG = "DataCapture1";
 
     List<DataModel> data = new ArrayList<>();
-
+    float x1, x2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -262,6 +263,22 @@ public class ActivityLabels extends AppCompatActivity {
             }
         }
     };
+
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+        switch (touchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                if (x1+200 < x2) {
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                }
+                break;
+        }
+        return false;
+    }
 
 
     private void setupEditTextListener() {
