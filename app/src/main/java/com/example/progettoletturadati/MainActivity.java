@@ -66,16 +66,29 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
 
-        String text = "Ciao, come s\ntai?";
+        String text = "Barcode Scanner infos\n\n" +
+                "Barcode Scanner is an app that uses DataWedge API to scan EAN and Label codes using Zebra integrated scanner. \n\n" +
+                "● To reach EAN codes scanning swipe left or touch “Scan EAN” button in the bottom navigation bar\n" +
+                "● To reach Label codes scanning swipe right or touch “Scan Labels” button in the bottom navigation bar\n\n" +
+                "@2023 Belletti & D’Esposito\n" +
+                "Corporation and/or its affiliates.\n";
         SpannableString spannableString = new SpannableString(text);
 
 // Aggiungi lo span di colore rosso alla prima parola
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.RED);
-        spannableString.setSpan(colorSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+        spannableString.setSpan(colorSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 // Aggiungi lo span di dimensione del testo alla prima parola
-        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(1.5f);
-        spannableString.setSpan(sizeSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(2f);
+        spannableString.setSpan(sizeSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        RelativeSizeSpan sizeSpan2 = new RelativeSizeSpan(1.25f);
+        spannableString.setSpan(sizeSpan2, 22, 397, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+        spannableString.setSpan(boldSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(spannableString);
