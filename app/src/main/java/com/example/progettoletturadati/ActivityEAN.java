@@ -139,6 +139,10 @@ public class ActivityEAN extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.info:
+                        startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
@@ -154,23 +158,6 @@ public class ActivityEAN extends AppCompatActivity {
     public void ToggleSoftScanTrigger (View view){
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_SOFT_SCAN_TRIGGER, "TOGGLE_SCANNING");
     }
-
-    public boolean onTouchEvent(MotionEvent touchEvent) {
-        switch (touchEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                x1 = touchEvent.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = touchEvent.getX();
-                if (x1 > x2+200) {
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                }
-                break;
-        }
-        return false;
-    }
-
     private void registerReceivers() {
 
         Log.d(LOG_TAG, "registerReceivers()");

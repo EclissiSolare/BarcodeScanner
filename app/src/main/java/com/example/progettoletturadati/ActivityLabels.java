@@ -139,6 +139,10 @@ public class ActivityLabels extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.info:
+                        startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
@@ -263,23 +267,6 @@ public class ActivityLabels extends AppCompatActivity {
             }
         }
     };
-
-    public boolean onTouchEvent(MotionEvent touchEvent) {
-        switch (touchEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                x1 = touchEvent.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = touchEvent.getX();
-                if (x1+200 < x2) {
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                }
-                break;
-        }
-        return false;
-    }
-
 
     private void setupEditTextListener() {
         EditText editText = findViewById(R.id.editTextLabels);

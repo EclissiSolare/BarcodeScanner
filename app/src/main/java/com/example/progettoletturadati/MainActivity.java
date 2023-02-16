@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.info:
+                        startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
+                        overridePendingTransition(0,0);
+                        return true;
                 }
                 return false;
             }
@@ -94,24 +98,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(spannableString);
     }
 
-    public boolean onTouchEvent(MotionEvent touchEvent) {
-        switch (touchEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                x1 = touchEvent.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = touchEvent.getX();
-                if (x1+200 < x2) {
-                    Intent i = new Intent(MainActivity.this, ActivityEAN.class);
-                    startActivity(i);
-                } else if (x1 > x2+200) {
-                    Intent i = new Intent(MainActivity.this, ActivityLabels.class);
-                    startActivity(i);
-                }
-                break;
-        }
-        return false;
-    }
+
 
     public void onClickEAN(View view) {
        Intent intent=new Intent(this,ActivityEAN.class);
