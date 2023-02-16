@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapp">
@@ -14,39 +15,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProgettoLetturaDati"
         tools:targetApi="31">
-
         <activity
-            android:name="com.example.progettoletturadati.TitleActivity"
+            android:name=".ActivityInfo"
+            android:exported="false" />
+        <activity
+            android:name=".TitleActivity"
             android:exported="true"
             android:priority="1000">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
-            android:name="com.example.progettoletturadati.ActivityJSONLIST"
-            android:parentActivityName="com.example.progettoletturadati.ActivityEAN"
-            android:exported="false" />
-
+            android:name=".ActivityJSONLIST"
+            android:exported="false"
+            android:parentActivityName=".ActivityEAN" />
         <activity
-            android:name="com.example.progettoletturadati.ActivityEAN"
-            android:parentActivityName="com.example.progettoletturadati.MainActivity"
-            android:exported="false" />
-
+            android:name=".ActivityEAN"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.example.progettoletturadati.ActivityLabels"
-            android:parentActivityName="com.example.progettoletturadati.MainActivity"
-            android:exported="false" />
-
+            android:name=".ActivityLabels"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.example.progettoletturadati.MainActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-
     </application>
 
 </manifest>
