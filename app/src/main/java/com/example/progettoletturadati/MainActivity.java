@@ -47,23 +47,26 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.ean:
+
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityEAN.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
                         return true;
                     case R.id.labels:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.info:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
+
+
 
         // Imposta la ActionBar personalizzata
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);

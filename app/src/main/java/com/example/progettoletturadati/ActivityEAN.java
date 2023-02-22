@@ -84,70 +84,51 @@ public class ActivityEAN extends AppCompatActivity {
         Bundle barcodeProps = new Bundle();
         barcodeProps.putString("scanner_selection", "auto");
         barcodeProps.putString("scanner_input_enabled", "true");
-        barcodeProps.putString("decoder_code128", "true");
+        barcodeProps.putString("decoder_code128", "false");
         barcodeProps.putString("decoder_code39", "false");
         barcodeProps.putString("decoder_ean13", "true");
         barcodeProps.putString("decoder_upca", "false");
         barcodeProps.putString("decoder_datamatrix", "false");
         barcodeProps.putString("decoder_qrcode", "false");
-
-        // Bundle "barcodeProps" within bundle "barcodeConfig"
         barcodeConfig.putBundle("PARAM_LIST", barcodeProps);
-        // Place "barcodeConfig" bundle within main "profileConfig" bundle
         profileConfig.putBundle("PLUGIN_CONFIG", barcodeConfig);
-
-        // Create APP_LIST bundle to associate app with profile
         Bundle appConfig = new Bundle();
         appConfig.putString("PACKAGE_NAME", getPackageName());
         appConfig.putStringArray("ACTIVITY_LIST", new String[]{"*"});
         profileConfig.putParcelableArray("APP_LIST", new Bundle[]{appConfig});
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_SET_CONFIG, profileConfig);
-
         Bundle b = new Bundle();
         b.putString(EXTRA_KEY_APPLICATION_NAME, getPackageName());
         b.putString(EXTRA_KEY_NOTIFICATION_TYPE, "SCANNER_STATUS");     // register for changes in scanner status
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_REGISTER_NOTIFICATION, b);
-
         registerReceivers();
 
-        // Get DataWedge version
-        // Use GET_VERSION_INFO: http://techdocs.zebra.com/datawedge/latest/guide/api/getversioninfo/
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_GET_VERSION_INFO, EXTRA_EMPTY);    // must be called after registering BroadcastReceiver
-
         setupEditTextListener();
-
-        // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-
-        // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.ean);
-
-        // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch(item.getItemId())
-                {
+                switch(item.getItemId()) {
                     case R.id.home:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.ean:
                         return true;
                     case R.id.labels:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.info:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle("Scanner EAN");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
@@ -171,7 +152,6 @@ public class ActivityEAN extends AppCompatActivity {
         filter.addAction(getResources().getString(R.string.activity_action_from_service));
         registerReceiver(myBroadcastReceiver, filter);
     }
-
     // Unregister scanner status notification
     public void unRegisterScannerStatus() {
         Log.d(LOG_TAG, "unRegisterScannerStatus()");
@@ -194,25 +174,16 @@ public class ActivityEAN extends AppCompatActivity {
 
             if (action.equals(getResources().getString(R.string.activity_intent_filter_action))) {
                 //  Received a barcode scan
-                try {
-                    displayScanResult(intent, "via Broadcast");
-                }
-                catch (Exception e) {
-                    //  Catch error if the UI does not exist when we receive the broadcast...
-                }
-            }
-
-            else if (action.equals(ACTION_RESULT))
-            {
+                try { displayScanResult(intent, "via Broadcast"); }
+                catch (Exception ignored) {}
+            } else if (action.equals(ACTION_RESULT)) {
                 // Register to receive the result code
-                if ((intent.hasExtra(EXTRA_RESULT)) && (intent.hasExtra(EXTRA_COMMAND)))
-                {
+                if ((intent.hasExtra(EXTRA_RESULT)) && (intent.hasExtra(EXTRA_COMMAND))) {
                     String command = intent.getStringExtra(EXTRA_COMMAND);
                     String result = intent.getStringExtra(EXTRA_RESULT);
                     String info = "";
 
-                    if (intent.hasExtra(EXTRA_RESULT_INFO))
-                    {
+                    if (intent.hasExtra(EXTRA_RESULT_INFO)) {
                         Bundle result_info = intent.getBundleExtra(EXTRA_RESULT_INFO);
                         Set<String> keys = result_info.keySet();
                         for (String key : keys) {
@@ -267,7 +238,6 @@ public class ActivityEAN extends AppCompatActivity {
         }
     };
 
-
     private void setupEditTextListener() {
         EditText editText = findViewById(R.id.editText);
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -290,26 +260,34 @@ public class ActivityEAN extends AppCompatActivity {
 
         Singleton.getInstance().setString(decodedData);
     }
-
     private Set<String> mData = new HashSet<>();
 
     //metodo richiamato per aggiungere dentro l'arraylist
-    public void addData(String data1){
+    public void addData(String data1) {
         EditText editText = findViewById(R.id.editText);
-        mListView = (ListView) findViewById(R.id.listView);
+        mListView = findViewById(R.id.listView);
         String key = data1;
         DataModel dataModel = new DataModel();
 
-        if (!mData.contains(key)){
+        // Verifica se l'elemento è già presente nella lista
+        boolean contains = false;
+        for (String item : mData) {
+            if (item.equals(key)) {
+                contains = true;
+                break;
+            }
+        }
+
+        if (!contains) {
             mData.add(key);
             dataModel.setData1(data1);
         }
-
 
         clearData(mListView);
         editText.setText("");
         createAndShowAlertDialog();
     }
+
 
     private void createAndShowAlertDialog() {
         new RetrieveFeedTask(this).execute();

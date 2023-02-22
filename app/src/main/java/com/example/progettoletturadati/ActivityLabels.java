@@ -32,7 +32,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityLabels extends AppCompatActivity {
     private ListView mListView;
-
     private static final String EXTRA_PROFILENAME = "DWDataCapture1";
     // DataWedge Extras
     private static final String EXTRA_GET_VERSION_INFO = "com.symbol.datawedge.api.GET_VERSION_INFO";
@@ -53,12 +52,10 @@ public class ActivityLabels extends AppCompatActivity {
     private static final String EXTRA_RESULT = "RESULT";
     private static final String EXTRA_RESULT_INFO = "RESULT_INFO";
     private static final String EXTRA_COMMAND = "COMMAND";
-
     // DataWedge Actions
     private static final String ACTION_DATAWEDGE = "com.symbol.datawedge.api.ACTION";
     private static final String ACTION_RESULT_NOTIFICATION = "com.symbol.datawedge.api.NOTIFICATION_ACTION";
     private static final String ACTION_RESULT = "com.symbol.datawedge.api.RESULT_ACTION";
-
     // private variables
     private Boolean bRequestSendResult = false;
     final String LOG_TAG = "DataCapture1";
@@ -74,13 +71,9 @@ public class ActivityLabels extends AppCompatActivity {
         profileConfig.putString("PROFILE_NAME", EXTRA_PROFILENAME);
         profileConfig.putString("PROFILE_ENABLED", "true");
         profileConfig.putString("CONFIG_MODE", "UPDATE");  // Update specified settings in profile
-
-        // PLUGIN_CONFIG bundle properties
         Bundle barcodeConfig = new Bundle();
         barcodeConfig.putString("PLUGIN_NAME", "BARCODE");
         barcodeConfig.putString("RESET_CONFIG", "true");
-
-        // PARAM_LIST bundle properties
         Bundle barcodeProps = new Bundle();
         barcodeProps.putString("scanner_selection", "auto");
         barcodeProps.putString("scanner_input_enabled", "true");
@@ -90,13 +83,8 @@ public class ActivityLabels extends AppCompatActivity {
         barcodeProps.putString("decoder_upca", "false");
         barcodeProps.putString("decoder_datamatrix", "false");
         barcodeProps.putString("decoder_qrcode", "false");
-
-        // Bundle "barcodeProps" within bundle "barcodeConfig"
         barcodeConfig.putBundle("PARAM_LIST", barcodeProps);
-        // Place "barcodeConfig" bundle within main "profileConfig" bundle
         profileConfig.putBundle("PLUGIN_CONFIG", barcodeConfig);
-
-        // Create APP_LIST bundle to associate app with profile
         Bundle appConfig = new Bundle();
         appConfig.putString("PACKAGE_NAME", getPackageName());
         appConfig.putStringArray("ACTIVITY_LIST", new String[]{"*"});
@@ -109,20 +97,10 @@ public class ActivityLabels extends AppCompatActivity {
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_REGISTER_NOTIFICATION, b);
 
         registerReceivers();
-
-        // Get DataWedge version
-        // Use GET_VERSION_INFO: http://techdocs.zebra.com/datawedge/latest/guide/api/getversioninfo/
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_GET_VERSION_INFO, EXTRA_EMPTY);    // must be called after registering BroadcastReceiver
-
         setupEditTextListener();
-
-        // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-
-        // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.labels);
-
-        // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -130,35 +108,30 @@ public class ActivityLabels extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.ean:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityEAN.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.labels:
                         return true;
                     case R.id.home:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.info:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle("Scanner Labels");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
-
     }
-
-    // Toggle soft scan trigger from UI onClick() event
     public void ToggleSoftScanTrigger (View view){
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_SOFT_SCAN_TRIGGER, "TOGGLE_SCANNING");
     }
-
     private void registerReceivers() {
 
         Log.d(LOG_TAG, "registerReceivers()");
@@ -167,13 +140,10 @@ public class ActivityLabels extends AppCompatActivity {
         filter.addAction(ACTION_RESULT_NOTIFICATION);   // for notification result
         filter.addAction(ACTION_RESULT);                // for error code result
         filter.addCategory(Intent.CATEGORY_DEFAULT);    // needed to get version info
-        // register to received broadcasts via DataWedge scanning
         filter.addAction(getResources().getString(R.string.activity_intent_filter_action));
         filter.addAction(getResources().getString(R.string.activity_action_from_service));
         registerReceiver(myBroadcastReceiver, filter);
     }
-
-    // Unregister scanner status notification
     public void unRegisterScannerStatus() {
         Log.d(LOG_TAG, "unRegisterScannerStatus()");
         Bundle b = new Bundle();
@@ -184,7 +154,6 @@ public class ActivityLabels extends AppCompatActivity {
         i.putExtra(EXTRA_UNREGISTER_NOTIFICATION, b);
         this.sendBroadcast(i);
     }
-
     private BroadcastReceiver myBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -202,7 +171,6 @@ public class ActivityLabels extends AppCompatActivity {
                     //  Catch error if the UI does not exist when we receive the broadcast...
                 }
             }
-
             else if (action.equals(ACTION_RESULT))
             {
                 // Register to receive the result code
@@ -234,7 +202,6 @@ public class ActivityLabels extends AppCompatActivity {
                     }
                 }
             }
-
             // Register for scanner change notification
             else if (action.equals(ACTION_RESULT_NOTIFICATION))
             {
@@ -267,7 +234,6 @@ public class ActivityLabels extends AppCompatActivity {
             }
         }
     };
-
     private void setupEditTextListener() {
         EditText editText = findViewById(R.id.editTextLabels);
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -280,7 +246,6 @@ public class ActivityLabels extends AppCompatActivity {
             return false;
         });
     }
-
     //mostra a schermo i codici scannerizzati
     private void displayScanResult(Intent initiatingIntent, String howDataReceived) {
         // store decoded data
@@ -290,9 +255,7 @@ public class ActivityLabels extends AppCompatActivity {
 
         Singleton.getInstance().setString(decodedData);
     }
-
     private Set<String> mData = new HashSet<>();
-
     //metodo richiamato per aggiungere dentro l'arraylist
     public void addData(String data1){
         EditText editText = findViewById(R.id.editTextLabels);
@@ -304,13 +267,9 @@ public class ActivityLabels extends AppCompatActivity {
             mData.add(key);
             dataModel.setData1(data1);
         }
-
-
-
         editText.setText("");
         createAndShowAlertDialog();
     }
-
     private void createAndShowAlertDialog() {
         new RetrieveFeedTask2(this).execute();
     }
@@ -323,8 +282,7 @@ public class ActivityLabels extends AppCompatActivity {
         data.clear();
     }
     //bundle
-    private void sendDataWedgeIntentWithExtra(String action, String extraKey, Bundle extras)
-    {
+    private void sendDataWedgeIntentWithExtra(String action, String extraKey, Bundle extras) {
         Intent dwIntent = new Intent();
         dwIntent.setAction(action);
         dwIntent.putExtra(extraKey, extras);
@@ -333,8 +291,7 @@ public class ActivityLabels extends AppCompatActivity {
         this.sendBroadcast(dwIntent);
     }
     //extras
-    private void sendDataWedgeIntentWithExtra(String action, String extraKey, String extraValue)
-    {
+    private void sendDataWedgeIntentWithExtra(String action, String extraKey, String extraValue) {
         Intent dwIntent = new Intent();
         dwIntent.setAction(action);
         dwIntent.putExtra(extraKey, extraValue);

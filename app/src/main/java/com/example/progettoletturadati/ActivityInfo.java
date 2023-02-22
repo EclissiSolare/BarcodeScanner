@@ -18,7 +18,7 @@ public class ActivityInfo extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         // Initialize and assign variable
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.info);
@@ -28,19 +28,18 @@ public class ActivityInfo extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         return true;
                     case R.id.ean:
-                        startActivity(new Intent(getApplicationContext(),ActivityEAN.class));
-                        overridePendingTransition(0,0);
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), ActivityEAN.class));
                         return true;
                     case R.id.labels:
-                        startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
-                        overridePendingTransition(0,0);
+                        finish();
+                        startActivity(new Intent(getApplicationContext(), ActivityLabels.class));
                         return true;
                     case R.id.info:
                         return true;
@@ -48,6 +47,7 @@ public class ActivityInfo extends AppCompatActivity {
                 return false;
             }
         });
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle("Scanner Info");
