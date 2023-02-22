@@ -44,6 +44,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
 
     protected String doInBackground(Void... urls) {
         String dati=Singleton2.getInstance().getDato();
+        System.out.println(dati);
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()

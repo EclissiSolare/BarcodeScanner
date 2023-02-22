@@ -1,10 +1,13 @@
 package com.example.progettoletturadati;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.amrdeveloper.treeview.TreeViewAdapter;
 import com.amrdeveloper.treeview.TreeViewHolderFactory;
@@ -29,6 +32,7 @@ public class ActivityJSONLIST extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jsonlist);
 
+
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
@@ -45,9 +49,7 @@ public class ActivityJSONLIST extends AppCompatActivity {
         recyclerView.setAdapter(treeViewAdapter);
 
         String jsonData = Singleton2.getInstance().getJSON();
-        if (jsonData == null) {
-            jsonData = Singleton.getInstance().getJSON();
-        }
+
         System.out.println(jsonData);
 
         Gson gson = new GsonBuilder()
@@ -57,6 +59,22 @@ public class ActivityJSONLIST extends AppCompatActivity {
         TreeNodes treeNodes = gson.fromJson(jsonData, TreeNodes.class);
 
         treeViewAdapter.updateTreeNodes(treeNodes.getTreeNodes());
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        final int menuId = item.getItemId();
+        if (menuId == R.id.expand_all_action) {
+            treeViewAdapter.expandAll();
+        }
+        else if (menuId == R.id.collapse_all_action) {
+            treeViewAdapter.collapseAll();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

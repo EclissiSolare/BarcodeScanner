@@ -239,7 +239,7 @@ public class ActivityLabels extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
                 addData(a);
-                Singleton.getInstance().setString(a);
+                Singleton2.getInstance().setDato(a);
                 return true;
             }
             return false;
