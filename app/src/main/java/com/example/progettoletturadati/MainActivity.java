@@ -73,10 +73,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
 
-        String text = "Barcode Scanner infos\n\n" +
-                "Barcode Scanner is an app that uses DataWedge API to scan EAN and Label codes using Zebra integrated scanner. \n\n" +
-                "● To reach EAN codes scanning swipe left or touch “Scan EAN” button in the bottom navigation bar\n" +
-                "● To reach Label codes scanning swipe right or touch “Scan Labels” button in the bottom navigation bar\n\n" +
+        String text =
+                "Barcode Scanner infos\n\n" +
+
+                "Barcode Scanner is an app that uses DataWedge API to scan EAN and Label codes using Zebra integrated scanner.\n\n" +
+
+                "To navigate inside the app you can use the bottom navigation bar.\n\n" +
+
+                        "●Home                                ●EAN Scanner\n" +
+                        "●Label Scanner                    ●Info Viewer\n\n" +
+
                 "@2023 Belletti & D’Esposito\n" +
                 "Corporation and/or its affiliates.\n";
         SpannableString spannableString = new SpannableString(text);
@@ -90,12 +96,10 @@ public class MainActivity extends AppCompatActivity {
         spannableString.setSpan(sizeSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         RelativeSizeSpan sizeSpan2 = new RelativeSizeSpan(1.25f);
-        spannableString.setSpan(sizeSpan2, 22, 397, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(sizeSpan2, 22, 361, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
         spannableString.setSpan(boldSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(spannableString);

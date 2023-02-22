@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/info"
-        android:title="Scan Info"
+        android:title="Info Viewer"
         android:icon="@drawable/info"/>
 
 </menu>

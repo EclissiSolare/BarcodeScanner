@@ -50,7 +50,7 @@ public class ActivityInfo extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("Scanner Info");
+        getSupportActionBar().setTitle("Info Viewer");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
     }
 }
