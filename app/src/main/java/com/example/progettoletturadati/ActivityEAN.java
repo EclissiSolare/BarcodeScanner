@@ -271,7 +271,7 @@ public class ActivityEAN extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
                 addData(a);
-                Singleton.getInstance().setString(a);
+                Singleton.getInstance().setDatoEAN(a);
                 return true;
             }
             return false;
@@ -285,7 +285,7 @@ public class ActivityEAN extends AppCompatActivity {
         // store decoder type
         addData(decodedData);
 
-        Singleton.getInstance().setString(decodedData);
+        Singleton.getInstance().setDatoEAN(decodedData);
     }
 
     private Set<String> mData = new HashSet<>();

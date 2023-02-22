@@ -2,9 +2,13 @@ package com.example.progettoletturadati.APIDir;
 
 public class Singleton {
     private static Singleton instance;
-    private String string;
+    private String datoLabels;
 
-    private String JSON;
+    private String datoEAN;
+
+    private String JSONLabels;
+
+    private String JSONEAN;
 
     private Singleton() {}
 
@@ -15,20 +19,36 @@ public class Singleton {
         return instance;
     }
 
-    public String getString() {
-        return string;
+    public String getDatoLabels() {
+        return datoLabels;
     }
 
-    public void setString(String string) {
-        this.string = string;
+    public void setDatoLabels(String datoLabels) {
+        this.datoLabels = datoLabels;
     }
 
-    public String getJSON() {
-        return JSON;
+    public String getDatoEAN() {
+        return datoEAN;
     }
 
-    public void setJSON(String JSON) {
-        this.JSON = JSON;
+    public void setDatoEAN(String datoEAN) {
+        this.datoEAN = datoEAN;
+    }
+
+    public String getJSONLabels() {
+        return JSONLabels;
+    }
+
+    public void setJSONLabels(String JSONLabels) {
+        this.JSONLabels = JSONLabels;
+    }
+
+    public String getJSONEAN() {
+        return JSONEAN;
+    }
+
+    public void setJSONEAN(String JSONEAN) {
+        this.JSONEAN = JSONEAN;
     }
 }
 

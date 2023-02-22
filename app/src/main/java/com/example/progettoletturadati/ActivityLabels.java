@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.progettoletturadati.APIDir.DataModel;
 import com.example.progettoletturadati.APIDir.RetrieveFeedTask2;
-import com.example.progettoletturadati.APIDir.Singleton;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 
 import android.view.MenuItem;
 
-import com.example.progettoletturadati.APIDir.Singleton2;
+import com.example.progettoletturadati.APIDir.Singleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityLabels extends AppCompatActivity {
@@ -239,7 +239,7 @@ public class ActivityLabels extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
                 addData(a);
-                Singleton2.getInstance().setDato(a);
+                Singleton.getInstance().setDatoLabels(a);
                 return true;
             }
             return false;
@@ -252,7 +252,7 @@ public class ActivityLabels extends AppCompatActivity {
         // store decoder type
         addData(decodedData);
 
-        Singleton2.getInstance().setDato(decodedData);
+        Singleton.getInstance().setDatoLabels(decodedData);
     }
     private Set<String> mData = new HashSet<>();
     //metodo richiamato per aggiungere dentro l'arraylist

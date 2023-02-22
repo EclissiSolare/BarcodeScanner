@@ -47,7 +47,7 @@ public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
 
     protected String doInBackground(Void... urls) {
-        String dati=Singleton.getInstance().getString();
+        String dati=Singleton.getInstance().getDatoEAN();
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -60,8 +60,7 @@ public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
             Response response = client.newCall(request).execute();
             responseBody = response.body().string();
 
-            Singleton.getInstance().setJSON(responseBody);
-
+            Singleton.getInstance().setJSONEAN(responseBody);
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             item = gson.fromJson(responseBody, Item.class);

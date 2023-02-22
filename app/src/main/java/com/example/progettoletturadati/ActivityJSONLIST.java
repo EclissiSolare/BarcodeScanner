@@ -18,7 +18,6 @@ import com.example.progettoletturadati.TreeViewDir.CustomViewHolderTwo;
 import com.example.progettoletturadati.TreeViewDir.TreeNodeParser;
 import com.example.progettoletturadati.TreeViewDir.TreeNodes;
 import com.example.progettoletturadati.APIDir.Singleton;
-import com.example.progettoletturadati.APIDir.Singleton2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -48,7 +47,12 @@ public class ActivityJSONLIST extends AppCompatActivity {
         treeViewAdapter = new TreeViewAdapter(factory);
         recyclerView.setAdapter(treeViewAdapter);
 
-        String jsonData = Singleton2.getInstance().getJSON();
+        String jsonData;
+        if (Singleton.getInstance().getJSONEAN() != null) {
+            jsonData = Singleton.getInstance().getJSONEAN();
+        } else {
+            jsonData = Singleton.getInstance().getJSONLabels();
+        }
 
         System.out.println(jsonData);
 

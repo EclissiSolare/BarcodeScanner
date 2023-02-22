@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ProgettoLetturaDati"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityInfoList"
+            android:exported="false" />
+        <activity
             android:name=".ActivityInfo"
             android:exported="false" />
         <activity
