@@ -1,8 +1,8 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.APIDir;
 
 public class Singleton2 {
     private static Singleton2 instance;
-    private String string;
+    private String dato;
 
     private String JSON;
 
@@ -20,5 +20,13 @@ public class Singleton2 {
 
     public void setJSON(String JSON) {
         this.JSON = JSON;
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
     }
 }

@@ -9,25 +9,24 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.progettoletturadati.prova.DataModel;
-import com.example.progettoletturadati.prova.RetrieveFeedTask2;
-import com.example.progettoletturadati.prova.Singleton;
+import com.example.progettoletturadati.APIDir.DataModel;
+import com.example.progettoletturadati.APIDir.RetrieveFeedTask2;
+import com.example.progettoletturadati.APIDir.Singleton;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
+
 import android.view.MenuItem;
+
+import com.example.progettoletturadati.APIDir.Singleton2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityLabels extends AppCompatActivity {
@@ -253,7 +252,7 @@ public class ActivityLabels extends AppCompatActivity {
         // store decoder type
         addData(decodedData);
 
-        Singleton.getInstance().setString(decodedData);
+        Singleton2.getInstance().setDato(decodedData);
     }
     private Set<String> mData = new HashSet<>();
     //metodo richiamato per aggiungere dentro l'arraylist

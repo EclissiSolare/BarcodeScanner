@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.APIDir;
 
 public class Singleton {
     private static Singleton instance;

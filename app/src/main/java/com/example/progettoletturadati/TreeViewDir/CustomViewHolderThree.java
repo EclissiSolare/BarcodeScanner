@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.expandableListdir;
+package com.example.progettoletturadati.TreeViewDir;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -10,20 +10,20 @@ import com.amrdeveloper.treeview.TreeNode;
 import com.amrdeveloper.treeview.TreeViewHolder;
 import com.example.progettoletturadati.R;
 
-public class CustomViewHolder extends TreeViewHolder {
+public class CustomViewHolderThree extends TreeViewHolder {
 
     private TextView fileName;
     private ImageView img;
 
 
-    public CustomViewHolder(@NonNull View itemView) {
+    public CustomViewHolderThree(@NonNull View itemView) {
         super(itemView);
         initViews();
     }
 
     private void initViews() {
-        fileName = itemView.findViewById(R.id.groupTitle);
-        img = itemView.findViewById(R.id.imageView);
+        fileName = itemView.findViewById(R.id.grandChild);
+        img = itemView.findViewById(R.id.imageViewgrandchild);
 
     }
 
@@ -47,5 +47,6 @@ public class CustomViewHolder extends TreeViewHolder {
             img.setRotation(0);
         }
     }
+
 
 }

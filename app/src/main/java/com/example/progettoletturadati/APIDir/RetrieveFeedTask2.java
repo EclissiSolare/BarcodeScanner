@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.APIDir;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -43,7 +43,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
 
 
     protected String doInBackground(Void... urls) {
-        String dati=Singleton.getInstance().getString();
+        String dati=Singleton2.getInstance().getDato();
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()

@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.APIDir;
 
 
 import android.content.Intent;
