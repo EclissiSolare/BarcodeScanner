@@ -130,18 +130,18 @@ public class ActivityEAN extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.home:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.ean:
                         return true;
                     case R.id.labels:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.info:
+                        finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
-                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
