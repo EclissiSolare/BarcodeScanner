@@ -1,15 +1,26 @@
 package com.example.progettoletturadati;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
-import com.example.progettoletturadati.expandableListdir.Child;
-import com.example.progettoletturadati.expandableListdir.CustomExpandableListAdapter;
-import com.example.progettoletturadati.expandableListdir.Group;
+import com.amrdeveloper.treeview.TreeViewAdapter;
+import com.amrdeveloper.treeview.TreeViewHolderFactory;
+import com.example.progettoletturadati.expandableListdir.CustomViewHolder;
+import com.example.progettoletturadati.expandableListdir.CustomViewHolderFour;
+import com.example.progettoletturadati.expandableListdir.CustomViewHolderThree;
+import com.example.progettoletturadati.expandableListdir.CustomViewHolderTwo;
+import com.example.progettoletturadati.expandableListdir.TreeNodeParser;
+import com.example.progettoletturadati.expandableListdir.TreeNodes;
 import com.example.progettoletturadati.prova.Singleton;
+import com.example.progettoletturadati.prova.Singleton2;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,87 +31,40 @@ import java.util.List;
 
 public class ActivityJSONLIST extends AppCompatActivity {
 
-    private String jsonString;
+    private TreeViewAdapter treeViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jsonlist);
 
-        try {
-            jsonString= Singleton.getInstance().getJSON();
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNestedScrollingEnabled(false);
 
-            // Parse the JSON object
-            JSONObject json = new JSONObject(jsonString);
+        TreeViewHolderFactory factory = (v, layout) -> {
+            if (layout == R.layout.list_item_one) return new CustomViewHolder(v);
+            else if (layout == R.layout.list_item_two) return new CustomViewHolderTwo(v);
+            else if(layout == R.layout.list_item_three) return new CustomViewHolderThree(v);
+            else if(layout==R.layout.list_item_four)return new CustomViewHolderFour(v);
+            return null;
+        };
 
-            // Get all the keys in the JSON object
-            Iterator<String> keys = json.keys();
+        treeViewAdapter = new TreeViewAdapter(factory);
+        recyclerView.setAdapter(treeViewAdapter);
 
-            // Create a list of Group objects
-            List<Group> groupList = new ArrayList<>();
+        final String jsonData = Singleton2.getInstance().getJSON();
 
-            // Loop through all the keys
-            while (keys.hasNext()) {
-                // Get the key
-                String key = keys.next();
+        System.out.println(jsonData);
 
-                // Get the value for the key
-                Object value = json.get(key);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(TreeNodes.class, new TreeNodeParser())
+                .create();
 
-                // Create a Group object for the key/value pair
-                Group group = new Group();
+        TreeNodes treeNodes = gson.fromJson(jsonData, TreeNodes.class);
 
-                // Check if the value is another JSON object
-                if (value instanceof JSONObject) {
-                    // Create a list for the Child objects
-                    List<Child> childData = new ArrayList<>();
-
-                    // Get all the keys in the nested JSON object
-                    Iterator<String> nestedKeys = ((JSONObject) value).keys();
-
-                    // Loop through all the keys in the nested JSON object
-                    while (nestedKeys.hasNext()) {
-                        // Get the key
-                        String nestedKey = nestedKeys.next();
-
-                        // Get the value for the key
-                        Object nestedValue = ((JSONObject) value).get(nestedKey);
-
-                        // Create a Child object for the nested key/value pair
-                        Child child = new Child();
-
-    
-
-                        child.setChildName(nestedKey);
-
-                    }
-                    // Set the group's name and children
-                    group.setGroupName(key);
-                    group.setChildren(childData);
-                } else {
-                    // Set the group's name and value
-                    group.setGroupName(key);
-                    group.setGroupValue(value.toString());
-                }
-                // Add the Group object to the group list
-                groupList.add(group);
-            }
-            ExpandableListView expandableListView = findViewById(R.id.listView);
-
-            expandableListView.setGroupIndicator(null);
-
-            // Create an adapter for the ExpandableListView
-            CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(this, groupList);
-
-
-            expandableListView.setAdapter(adapter);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Data");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
+        treeViewAdapter.updateTreeNodes(treeNodes.getTreeNodes());
     }
 
 }

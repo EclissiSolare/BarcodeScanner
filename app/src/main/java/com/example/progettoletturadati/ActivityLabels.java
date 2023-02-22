@@ -259,7 +259,7 @@ public class ActivityLabels extends AppCompatActivity {
     //metodo richiamato per aggiungere dentro l'arraylist
     public void addData(String data1){
         EditText editText = findViewById(R.id.editTextLabels);
-        mListView = (ListView) findViewById(R.id.listView);
+
         String key = data1;
         DataModel dataModel = new DataModel();
 
@@ -276,7 +276,7 @@ public class ActivityLabels extends AppCompatActivity {
 
     //svuota l'arraylist
     public void clearData(View view) {
-        mListView = (ListView) findViewById(R.id.listView);
+
         List<DataModel> data2 = new ArrayList<>();
         mData.clear();
         data.clear();

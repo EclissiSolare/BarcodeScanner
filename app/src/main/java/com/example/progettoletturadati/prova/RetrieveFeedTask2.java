@@ -56,7 +56,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
             Response response = client.newCall(request).execute();
             responseBody = response.body().string();
 
-            Singleton.getInstance().setJSON(responseBody);
+            Singleton2.getInstance().setJSON(responseBody);
 
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
