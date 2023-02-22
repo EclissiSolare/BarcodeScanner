@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.expandableListdir;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.expandableListdir;
 
 public class GrandChild {
 

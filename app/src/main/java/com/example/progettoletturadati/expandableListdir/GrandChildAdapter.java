@@ -1,4 +1,4 @@
-package com.example.progettoletturadati.prova;
+package com.example.progettoletturadati.expandableListdir;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.progettoletturadati.ActivityJSONLIST;
 import com.example.progettoletturadati.R;
+import com.example.progettoletturadati.expandableListdir.Child;
+import com.example.progettoletturadati.expandableListdir.GrandChild;
 
 import java.util.List;
 
