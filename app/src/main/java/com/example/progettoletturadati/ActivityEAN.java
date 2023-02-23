@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.progettoletturadati.APIDir.DataModel;
 import com.example.progettoletturadati.APIDir.RetrieveFeedTask;
-import com.example.progettoletturadati.APIDir.Singleton;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +26,8 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 
 import android.view.MenuItem;
+
+import com.example.progettoletturadati.APIDir.Singleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityEAN extends AppCompatActivity {
@@ -62,7 +64,7 @@ public class ActivityEAN extends AppCompatActivity {
     final String LOG_TAG = "DataCapture1";
 
     List<DataModel> data = new ArrayList<>();
-    float x1, x2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,7 +269,7 @@ public class ActivityEAN extends AppCompatActivity {
 
 
     private void setupEditTextListener() {
-        EditText editText = findViewById(R.id.editText);
+        EditText editText = findViewById(R.id.editTextInfo);
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
@@ -293,7 +295,7 @@ public class ActivityEAN extends AppCompatActivity {
 
     //metodo richiamato per aggiungere dentro l'arraylist
     public void addData(String data1){
-        EditText editText = findViewById(R.id.editText);
+        EditText editText = findViewById(R.id.editTextInfo);
         String key = data1;
         DataModel dataModel = new DataModel();
 

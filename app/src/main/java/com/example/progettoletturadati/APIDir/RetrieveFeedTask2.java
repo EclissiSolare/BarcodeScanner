@@ -3,7 +3,9 @@ package com.example.progettoletturadati.APIDir;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.example.progettoletturadati.ActivityInfo;
 import com.example.progettoletturadati.ActivityJSONLIST;
+import com.example.progettoletturadati.ActivityJSONLIST2;
 import com.example.progettoletturadati.ActivityLabels;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +22,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
     private ActivityLabels activityLabels;
+
     private Response response;
     private String codiceBarre;
     private Item labels;
@@ -35,7 +38,7 @@ public class RetrieveFeedTask2 extends AsyncTask<Void, Void, String> {
     }
 
     protected void onPostExecute(String result) {
-        Intent intent = new Intent(activityLabels, ActivityJSONLIST.class);
+        Intent intent = new Intent(activityLabels, ActivityJSONLIST2.class);
         intent.putExtra("json", (Serializable) labels);
         activityLabels.startActivity(intent);
     }

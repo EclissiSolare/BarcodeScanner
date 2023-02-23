@@ -5,23 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.amrdeveloper.treeview.TreeViewAdapter;
 import com.amrdeveloper.treeview.TreeViewHolderFactory;
+import com.example.progettoletturadati.APIDir.Singleton;
 import com.example.progettoletturadati.TreeViewDir.CustomViewHolder;
 import com.example.progettoletturadati.TreeViewDir.CustomViewHolderFour;
 import com.example.progettoletturadati.TreeViewDir.CustomViewHolderThree;
 import com.example.progettoletturadati.TreeViewDir.CustomViewHolderTwo;
 import com.example.progettoletturadati.TreeViewDir.TreeNodeParser;
 import com.example.progettoletturadati.TreeViewDir.TreeNodes;
-import com.example.progettoletturadati.APIDir.Singleton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class ActivityJSONLIST extends AppCompatActivity {
+public class ActivityJSONLIST2 extends AppCompatActivity {
 
     private TreeViewAdapter treeViewAdapter;
 
@@ -29,10 +30,10 @@ public class ActivityJSONLIST extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jsonlist);
+        setContentView(R.layout.activity_jsonlist2);
 
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
 
@@ -47,14 +48,14 @@ public class ActivityJSONLIST extends AppCompatActivity {
         treeViewAdapter = new TreeViewAdapter(factory);
         recyclerView.setAdapter(treeViewAdapter);
 
-        String jsonEAN=Singleton.getInstance().getJSONEAN();
+        String jsonLabels=Singleton.getInstance().getJSONLabels();
 
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(TreeNodes.class, new TreeNodeParser())
                 .create();
 
-        TreeNodes treeNodes = gson.fromJson(jsonEAN, TreeNodes.class);
+        TreeNodes treeNodes = gson.fromJson(jsonLabels, TreeNodes.class);
 
         treeViewAdapter.updateTreeNodes(treeNodes.getTreeNodes());
     }

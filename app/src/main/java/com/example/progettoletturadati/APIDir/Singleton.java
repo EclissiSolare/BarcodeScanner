@@ -7,6 +7,8 @@ public class Singleton {
     private String JSONLabels;
     private String JSONEAN;
 
+    private String datoInfo;
+
 
 
     private Singleton() {}
@@ -48,6 +50,15 @@ public class Singleton {
 
     public void setJSONEAN(String JSONEAN) {
         this.JSONEAN = JSONEAN;
+    }
+
+
+    public String getDatoInfo() {
+        return datoInfo;
+    }
+
+    public void setDatoInfo(String datoInfo) {
+        this.datoInfo = datoInfo;
     }
 }
 
