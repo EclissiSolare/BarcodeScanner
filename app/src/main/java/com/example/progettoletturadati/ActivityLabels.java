@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.progettoletturadati.APIDir.DataModel;
+
 import com.example.progettoletturadati.APIDir.RetrieveFeedTask2;
 
 import java.util.ArrayList;

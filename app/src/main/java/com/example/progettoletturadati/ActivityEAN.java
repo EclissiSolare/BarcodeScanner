@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.progettoletturadati.APIDir.DataModel;
 import com.example.progettoletturadati.APIDir.RetrieveFeedTask;
 import com.example.progettoletturadati.APIDir.Singleton;

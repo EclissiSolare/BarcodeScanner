@@ -3,12 +3,11 @@ package com.example.progettoletturadati.APIDir;
 public class Singleton {
     private static Singleton instance;
     private String datoLabels;
-
     private String datoEAN;
-
     private String JSONLabels;
-
     private String JSONEAN;
+
+
 
     private Singleton() {}
 
