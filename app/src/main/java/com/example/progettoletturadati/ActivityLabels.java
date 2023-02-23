@@ -121,6 +121,10 @@ public class ActivityLabels extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
                         return true;
+                    case R.id.insert:
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),ActivityInsert.class));
+                        return true;
                 }
                 return false;
             }

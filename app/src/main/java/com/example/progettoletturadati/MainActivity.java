@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.ean:
-
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityEAN.class));
                         return true;
@@ -60,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.info:
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
+                        return true;
+                    case R.id.insert:
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),ActivityInsert.class));
                         return true;
                 }
                 return false;

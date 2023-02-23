@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 
 
 import com.example.progettoletturadati.ActivityEAN;
-import com.example.progettoletturadati.ActivityJSONLIST;
+import com.example.progettoletturadati.TreeViewDir.ActivityJSONLIST;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

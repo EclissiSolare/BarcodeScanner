@@ -93,9 +93,20 @@ public class ActivityInfoList extends AppCompatActivity {
                 JSONObject items = matching.getJSONArray("items").getJSONObject(0);
                 String itemID = items.getString("itemId");
                 String nomeProdotto = items.getString("name");
-                String prezzoVendita = items.getJSONObject("custom").getString("prezzo_vendita");
-                String annata = items.getJSONObject("custom").getString("annata");
-                String cantina = items.getJSONObject("custom").getString("cantina");
+
+                String prezzoVendita;
+                JSONObject custom = items.optJSONObject("custom");
+                if (custom != null && custom.has("prezzo_vendita")) {
+                    prezzoVendita = custom.getString("prezzo_vendita");
+                } else {
+                    prezzoVendita = items.optString("price", "0");
+                }
+
+
+                String annata = items.getJSONObject("custom").optString("annata", "null");
+
+
+                String cantina = items.getJSONObject("custom").optString("cantina","null");
 
                 JSONObject connectivity = json1.getJSONObject("connectivity");
                 String status = connectivity.getString("status");

@@ -20,5 +20,9 @@
         android:id="@+id/info"
         android:title="Info Viewer"
         android:icon="@drawable/info"/>
+    <item
+        android:id="@+id/insert"
+        android:title="Insert"
+        android:icon="@drawable/insert"/>
 
 </menu>

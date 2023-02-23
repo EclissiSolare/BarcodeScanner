@@ -31,8 +31,6 @@ import com.example.progettoletturadati.APIDir.Singleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityEAN extends AppCompatActivity {
-    private ListView mListView;
-
     private static final String EXTRA_PROFILENAME = "DWDataCapture1";
     // DataWedge Extras
     private static final String EXTRA_GET_VERSION_INFO = "com.symbol.datawedge.api.GET_VERSION_INFO";
@@ -84,7 +82,7 @@ public class ActivityEAN extends AppCompatActivity {
         Bundle barcodeProps = new Bundle();
         barcodeProps.putString("scanner_selection", "auto");
         barcodeProps.putString("scanner_input_enabled", "true");
-        barcodeProps.putString("decoder_code128", "true");
+        barcodeProps.putString("decoder_code128", "false");
         barcodeProps.putString("decoder_code39", "false");
         barcodeProps.putString("decoder_ean13", "true");
         barcodeProps.putString("decoder_upca", "false");
@@ -142,6 +140,10 @@ public class ActivityEAN extends AppCompatActivity {
                     case R.id.info:
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
+                        return true;
+                    case R.id.insert:
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),ActivityInsert.class));
                         return true;
                 }
                 return false;

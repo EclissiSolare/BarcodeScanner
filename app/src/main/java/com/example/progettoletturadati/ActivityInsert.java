@@ -10,28 +10,39 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progettoletturadati.APIDir.DataModel;
-import com.example.progettoletturadati.APIDir.RetrieveFeedTask2;
+import com.example.progettoletturadati.APIDir.RetrieveFeedTask;
 import com.example.progettoletturadati.APIDir.Singleton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ActivityInfo extends AppCompatActivity {
-    private ListView mListView;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class ActivityInsert extends AppCompatActivity {
+    private EditText mEditTextLabelID;
+    private EditText mEditTextItemID;
+    // API URL
     private static final String EXTRA_PROFILENAME = "DWDataCapture1";
     // DataWedge Extras
     private static final String EXTRA_GET_VERSION_INFO = "com.symbol.datawedge.api.GET_VERSION_INFO";
@@ -59,54 +70,62 @@ public class ActivityInfo extends AppCompatActivity {
     // private variables
     private Boolean bRequestSendResult = false;
     final String LOG_TAG = "DataCapture1";
-
-    List<DataModel> data = new ArrayList<>();
-    float x1, x2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
-
+        setContentView(R.layout.activity_insert);
         Bundle profileConfig = new Bundle();
         profileConfig.putString("PROFILE_NAME", EXTRA_PROFILENAME);
         profileConfig.putString("PROFILE_ENABLED", "true");
         profileConfig.putString("CONFIG_MODE", "UPDATE");  // Update specified settings in profile
+        // PLUGIN_CONFIG bundle properties
         Bundle barcodeConfig = new Bundle();
         barcodeConfig.putString("PLUGIN_NAME", "BARCODE");
         barcodeConfig.putString("RESET_CONFIG", "true");
+        // PARAM_LIST bundle properties
         Bundle barcodeProps = new Bundle();
         barcodeProps.putString("scanner_selection", "auto");
         barcodeProps.putString("scanner_input_enabled", "true");
         barcodeProps.putString("decoder_code128", "true");
         barcodeProps.putString("decoder_code39", "false");
-        barcodeProps.putString("decoder_ean13", "false");
+        barcodeProps.putString("decoder_ean13", "true");
         barcodeProps.putString("decoder_upca", "false");
         barcodeProps.putString("decoder_datamatrix", "false");
         barcodeProps.putString("decoder_qrcode", "false");
+        // Bundle "barcodeProps" within bundle "barcodeConfig"
         barcodeConfig.putBundle("PARAM_LIST", barcodeProps);
+        // Place "barcodeConfig" bundle within main "profileConfig" bundle
         profileConfig.putBundle("PLUGIN_CONFIG", barcodeConfig);
+        // Create APP_LIST bundle to associate app with profile
         Bundle appConfig = new Bundle();
         appConfig.putString("PACKAGE_NAME", getPackageName());
         appConfig.putStringArray("ACTIVITY_LIST", new String[]{"*"});
         profileConfig.putParcelableArray("APP_LIST", new Bundle[]{appConfig});
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_SET_CONFIG, profileConfig);
-
         Bundle b = new Bundle();
         b.putString(EXTRA_KEY_APPLICATION_NAME, getPackageName());
         b.putString(EXTRA_KEY_NOTIFICATION_TYPE, "SCANNER_STATUS");     // register for changes in scanner status
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_REGISTER_NOTIFICATION, b);
-
         registerReceivers();
+        // Get DataWedge version
+        // Use GET_VERSION_INFO: http://techdocs.zebra.com/datawedge/latest/guide/api/getversioninfo/
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_GET_VERSION_INFO, EXTRA_EMPTY);    // must be called after registering BroadcastReceiver
         setupEditTextListener();
+        // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.info);
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.insert);
+        // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch(item.getItemId())
                 {
+                    case R.id.home:
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        return true;
                     case R.id.ean:
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityEAN.class));
@@ -115,25 +134,22 @@ public class ActivityInfo extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(getApplicationContext(),ActivityLabels.class));
                         return true;
-                    case R.id.home:
-                        finish();
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        return true;
                     case R.id.info:
+                        finish();
+                        startActivity(new Intent(getApplicationContext(),ActivityInfo.class));
                         return true;
                     case R.id.insert:
-                        finish();
-                        startActivity(new Intent(getApplicationContext(),ActivityInsert.class));
                         return true;
-
                 }
                 return false;
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("Scanner Labels");
+        getSupportActionBar().setTitle("Matching");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
+
     }
+    // Toggle soft scan trigger from UI onClick() event
     public void ToggleSoftScanTrigger (View view){
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_SOFT_SCAN_TRIGGER, "TOGGLE_SCANNING");
     }
@@ -145,10 +161,12 @@ public class ActivityInfo extends AppCompatActivity {
         filter.addAction(ACTION_RESULT_NOTIFICATION);   // for notification result
         filter.addAction(ACTION_RESULT);                // for error code result
         filter.addCategory(Intent.CATEGORY_DEFAULT);    // needed to get version info
+        // register to received broadcasts via DataWedge scanning
         filter.addAction(getResources().getString(R.string.activity_intent_filter_action));
         filter.addAction(getResources().getString(R.string.activity_action_from_service));
         registerReceiver(myBroadcastReceiver, filter);
     }
+    // Unregister scanner status notification
     public void unRegisterScannerStatus() {
         Log.d(LOG_TAG, "unRegisterScannerStatus()");
         Bundle b = new Bundle();
@@ -222,7 +240,7 @@ public class ActivityInfo extends AppCompatActivity {
                                 // Change in scanner status occurred
                                 String displayScannerStatusText = extras.getString(EXTRA_KEY_VALUE_NOTIFICATION_STATUS);
                                 //Toast.makeText(getApplicationContext(), displayScannerStatusText, Toast.LENGTH_SHORT).show();
-                                final TextView lblScannerStatus = (TextView) findViewById(R.id.txtInfo);
+                                final TextView lblScannerStatus = (TextView) findViewById(R.id.txtInsertStatus);
                                 lblScannerStatus.setText(displayScannerStatusText);
                                 break;
                             case EXTRA_KEY_VALUE_PROFILE_SWITCH:
@@ -240,12 +258,22 @@ public class ActivityInfo extends AppCompatActivity {
         }
     };
     private void setupEditTextListener() {
-        EditText editText = findViewById(R.id.editTextInfo);
-        editText.setOnEditorActionListener((v, actionId, event) -> {
+        mEditTextItemID = findViewById(R.id.editTextInsertEan);
+        mEditTextLabelID=findViewById(R.id.editTextInsertLabel);
+        mEditTextItemID.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 String a = v.getText().toString();
                 addData(a);
-                Singleton.getInstance().setDatoInfo(a);
+                Singleton.getInstance().setDatoEAN(a);
+                return true;
+            }
+            return false;
+        });
+        mEditTextLabelID.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String a = v.getText().toString();
+                addData(a);
+                Singleton.getInstance().setDatoLabels(a);
                 return true;
             }
             return false;
@@ -257,37 +285,28 @@ public class ActivityInfo extends AppCompatActivity {
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
         // store decoder type
         addData(decodedData);
+        Singleton.getInstance().setDatoEAN(decodedData);
+    }
+    public void onClickInsert(View view) throws Exception {
+        String labelID = mEditTextLabelID.getText().toString();
+        String itemID = mEditTextItemID.getText().toString();
 
-        Singleton.getInstance().setDatoInfo(decodedData);
+        // Call the API to insert the new label and item IDs
+        insertDataintoAPI(labelID,itemID);
     }
     private Set<String> mData = new HashSet<>();
     //metodo richiamato per aggiungere dentro l'arraylist
     public void addData(String data1){
-        EditText editText = findViewById(R.id.editTextInfo);
-
+        mEditTextItemID = findViewById(R.id.editTextInsertEan);
+        mEditTextLabelID=findViewById(R.id.editTextInsertLabel);
         String key = data1;
         DataModel dataModel = new DataModel();
-
         if (!mData.contains(key)){
             mData.add(key);
             dataModel.setData1(data1);
         }
-        editText.setText("");
-        createAndShowAlertDialog();
-    }
-    private void createAndShowAlertDialog() {
-        Intent intent=new Intent(this,ActivityInfoList.class);
-        startActivity(intent);
-    }
 
-    //svuota l'arraylist
-    public void clearData(View view) {
-
-        List<DataModel> data2 = new ArrayList<>();
-        mData.clear();
-        data.clear();
     }
-    //bundle
     private void sendDataWedgeIntentWithExtra(String action, String extraKey, Bundle extras) {
         Intent dwIntent = new Intent();
         dwIntent.setAction(action);
@@ -296,7 +315,6 @@ public class ActivityInfo extends AppCompatActivity {
             dwIntent.putExtra(EXTRA_SEND_RESULT, "true");
         this.sendBroadcast(dwIntent);
     }
-    //extras
     private void sendDataWedgeIntentWithExtra(String action, String extraKey, String extraValue) {
         Intent dwIntent = new Intent();
         dwIntent.setAction(action);
@@ -305,7 +323,6 @@ public class ActivityInfo extends AppCompatActivity {
             dwIntent.putExtra(EXTRA_SEND_RESULT, "true");
         this.sendBroadcast(dwIntent);
     }
-    @Override
     protected void onResume() {
         super.onResume();
         registerReceivers();
@@ -327,4 +344,41 @@ public class ActivityInfo extends AppCompatActivity {
     {
         super.onStop();
     }
+
+    public void insertDataintoAPI(String labelId, String itemId) {
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                try {
+                    OkHttpClient client = new OkHttpClient().newBuilder().build();
+                    MediaType mediaType = MediaType.parse("application/json");
+                    String json = "[{\"labelId\":\"" + params[0] + "\",\"registrationCode\":null,\"items\":[{\"itemId\":\"" + params[1] + "\"}]}]";
+                    RequestBody body = RequestBody.create(mediaType, json);
+                    Request request = new Request.Builder()
+                            .url("https://api-eu.vusion.io/vlink-pro/v1/stores/retex_it.vlab/labels/matchings")
+                            .method("POST", body)
+                            .addHeader("Ocp-Apim-Subscription-Key", "396b91329ae14428b67048372c7d9ab7")
+                            .addHeader("Content-Type", "application/json")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    return response.body().string();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                if (result != null) {
+                    Toast.makeText(ActivityInsert.this, "Inserimento riuscito", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(ActivityInsert.this, "Error occurred while calling API", Toast.LENGTH_LONG).show();
+                }
+            }
+        }.execute(labelId, itemId);
+    }
+
+
+
 }
