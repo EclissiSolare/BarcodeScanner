@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 public class ActivityInfoList extends AppCompatActivity {
 
-    private TextView txtLabelID, txtItemID, txtPrezzo, txtCantina, txtAnnata, txtNomeProdotto;
+    private TextView txtLabelID, txtItemID, txtPrezzo,txtNomeProdotto;
     private TextView txtStatoBatteria, txtConnectivityStatus;
     private ImageView imgEtichetta;
 
@@ -39,8 +39,6 @@ public class ActivityInfoList extends AppCompatActivity {
         txtLabelID = findViewById(R.id.txtLabelID);
         txtItemID = findViewById(R.id.txtItemID);
         txtPrezzo = findViewById(R.id.txtPrezzo);
-        txtCantina = findViewById(R.id.txtCantina);
-        txtAnnata = findViewById(R.id.txtAnnata);
         txtNomeProdotto = findViewById(R.id.txtNomeProdotto);
 
         txtStatoBatteria = findViewById(R.id.txtStatoBatteria);
@@ -103,11 +101,6 @@ public class ActivityInfoList extends AppCompatActivity {
                 }
 
 
-                String annata = items.getJSONObject("custom").optString("annata", "null");
-
-
-                String cantina = items.getJSONObject("custom").optString("cantina","null");
-
                 JSONObject connectivity = json1.getJSONObject("connectivity");
                 String status = connectivity.getString("status");
 
@@ -119,7 +112,7 @@ public class ActivityInfoList extends AppCompatActivity {
                 JSONObject pages = json2.getJSONArray("pages").getJSONObject(0);
                 String imageData = pages.getString("image");
 
-                return new String[]{nomeProdotto, prezzoVendita, annata, cantina,imageData, status, battery,labelID,itemID};
+                return new String[]{nomeProdotto, prezzoVendita,imageData, status, battery,labelID,itemID};
 
             } catch (IOException | JSONException e) {
                 Log.e("HTTP GET Request", "Request failed: " + e.getMessage());
@@ -135,16 +128,14 @@ public class ActivityInfoList extends AppCompatActivity {
                 return;
             }
 
-            txtLabelID.setText("Label ID: "+result[7]);
-            txtItemID.setText("Item ID: "+result[8]);
+            txtLabelID.setText("Label ID: "+result[5]);
+            txtItemID.setText("Item ID: "+result[6]);
             txtNomeProdotto.setText("Nome prodotto: "+result[0]);
             txtPrezzo.setText("Prezzo :"+result[1]+"€");
-            txtAnnata.setText("Annata :"+result[2]);
-            txtCantina.setText("Cantina :"+result[3]);
-            txtConnectivityStatus.setText("Connectivity Status: "+result[5]);
-            txtStatoBatteria.setText("Stato batteria: "+result[6]);
+            txtConnectivityStatus.setText("Connectivity Status: "+result[3]);
+            txtStatoBatteria.setText("Stato batteria: "+result[4]);
 
-            byte[] decodedString = Base64.decode(result[4], Base64.DEFAULT);
+            byte[] decodedString = Base64.decode(result[2], Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             imgEtichetta.setImageBitmap(decodedByte);
         }
