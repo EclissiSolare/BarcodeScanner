@@ -288,8 +288,8 @@ public class ActivityInsert extends AppCompatActivity {
         Singleton.getInstance().setDatoEAN(decodedData);
     }
     public void onClickInsert(View view) throws Exception {
-        String labelID = mEditTextLabelID.getText().toString();
         String itemID = mEditTextItemID.getText().toString();
+        String labelID = mEditTextLabelID.getText().toString();
 
         // Call the API to insert the new label and item IDs
         insertDataintoAPI(labelID,itemID);
