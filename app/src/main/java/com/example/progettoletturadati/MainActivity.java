@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Calcolare la larghezza dell'immagine in pixel
-        int imageSize = (int) (textView.getLineHeight() * 2f);
+        int imageSize = (int) (textView.getLineHeight() * 1.5f);
 
         // Ridimensionare il drawable per adattarlo alla larghezza desiderata
         Drawable scaledHomeDrawable = homeDrawable.getConstantState().newDrawable().mutate();
@@ -133,12 +133,11 @@ public class MainActivity extends AppCompatActivity {
                 "To navigate inside the app you can use the bottom navigation bar.\n\n" +
 
                 "●HomeHome                     ●EAN ScannerEAN Scanner\n" +
-                "●Label ScannerLabel Scanner     ●Info ViewerInfo Viewer\n\n" +
-                "                      ●MatchingMatching\n\n"+
+                "●Label ScannerLabel Scanner      ●Info ViewerInfo Viewer\n" +
+                "      ●MatchingMatching EAN to a Label\n\n"+
 
-                "@2023 Belletti & D’Esposito\n" +
-                "Corporation and/or its affiliates.\n";
-        SpannableString spannableString = new SpannableString(text);
+                "@2023 Belletti & D’Esposito\n";
+                SpannableString spannableString = new SpannableString(text);
 
         // Aggiungi lo span di colore rosso alla prima parola
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         spannableString.setSpan(sizeSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         RelativeSizeSpan sizeSpan2 = new RelativeSizeSpan(1.25f);
-        spannableString.setSpan(sizeSpan2, 22, 361, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(sizeSpan2, 22, 380, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
         spannableString.setSpan(boldSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
