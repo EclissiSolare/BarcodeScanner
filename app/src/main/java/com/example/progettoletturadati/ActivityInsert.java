@@ -108,7 +108,6 @@ public class ActivityInsert extends AppCompatActivity {
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_REGISTER_NOTIFICATION, b);
         registerReceivers();
 
-        mEditTextItemID.requestFocus();
         // Get DataWedge version
         // Use GET_VERSION_INFO: http://techdocs.zebra.com/datawedge/latest/guide/api/getversioninfo/
         sendDataWedgeIntentWithExtra(ACTION_DATAWEDGE, EXTRA_GET_VERSION_INFO, EXTRA_EMPTY);    // must be called after registering BroadcastReceiver
@@ -261,6 +260,7 @@ public class ActivityInsert extends AppCompatActivity {
     };
     private void setupEditTextListener() {
         mEditTextItemID = findViewById(R.id.editTextInsertEan);
+        mEditTextItemID.requestFocus();
         mEditTextLabelID=findViewById(R.id.editTextInsertLabel);
         mEditTextItemID.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
