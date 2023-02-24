@@ -131,7 +131,7 @@ public class ActivityInfo extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("Scanner Labels");
+        getSupportActionBar().setTitle("Info Viewer");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.turchese)));
     }
     public void ToggleSoftScanTrigger (View view){

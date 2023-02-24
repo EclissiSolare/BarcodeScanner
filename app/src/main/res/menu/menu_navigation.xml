@@ -8,21 +8,21 @@
 
     <item
         android:id="@+id/ean"
-        android:title="Scan EAN"
+        android:title="EAN"
         android:icon="@drawable/ean"/>
 
     <item
         android:id="@+id/labels"
-        android:title="Scan Labels"
+        android:title="Labels"
         android:icon="@drawable/label"/>
 
     <item
         android:id="@+id/info"
-        android:title="Info Viewer"
+        android:title="Info"
         android:icon="@drawable/info"/>
     <item
         android:id="@+id/insert"
-        android:title="Insert"
+        android:title="Match"
         android:icon="@drawable/insert"/>
 
 </menu>

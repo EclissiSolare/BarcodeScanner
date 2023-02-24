@@ -1,6 +1,5 @@
 package com.example.progettoletturadati;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,24 +9,17 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
-import android.view.MotionEvent;
-import android.view.View;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class MainActivity extends AppCompatActivity {
-
-    float x1, x2, y1, y2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 "Barcode Scanner is an app that uses DataWedge API to scan EAN and Label codes using Zebra integrated scanner.\n\n" +
 
                 "To navigate inside the app you can use the bottom navigation bar.\n\n" +
-
-                        "●Home                                ●EAN Scanner\n" +
-                        "●Label Scanner                    ●Info Viewer\n\n" +
+                "(home) = this activity, (EAN) EAN Scanner Activity, (Label) Label Scanner Activity, (Info) Info Viewer Activity, (Insert) Matching Activity"+
 
                 "@2023 Belletti & D’Esposito\n" +
                 "Corporation and/or its affiliates.\n";
