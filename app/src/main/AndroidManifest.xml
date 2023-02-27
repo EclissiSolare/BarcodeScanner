@@ -20,7 +20,8 @@
             android:exported="false" />
         <activity
             android:name="com.example.progettoletturadati.TreeViewDir.ActivityJSONLIST2"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName="com.example.progettoletturadati.ActivityLabels"/>
         <activity
             android:name="com.example.progettoletturadati.ActivityInfoList"
             android:exported="false"
