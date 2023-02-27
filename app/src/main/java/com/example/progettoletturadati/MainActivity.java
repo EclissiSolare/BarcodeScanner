@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         spannableString.setSpan(sizeSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         RelativeSizeSpan sizeSpan2 = new RelativeSizeSpan(1.25f);
-        spannableString.setSpan(sizeSpan2, 22, 380, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(sizeSpan2, 22, 370, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
         spannableString.setSpan(boldSpan, 0, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

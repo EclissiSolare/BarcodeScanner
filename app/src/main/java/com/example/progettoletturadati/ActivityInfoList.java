@@ -130,10 +130,10 @@ public class ActivityInfoList extends AppCompatActivity {
 
             txtLabelID.setText("Label ID: "+result[5]);
             txtItemID.setText("Item ID: "+result[6]);
-            txtNomeProdotto.setText("Nome prodotto: "+result[0]);
-            txtPrezzo.setText("Prezzo :"+result[1]+"€");
+            txtNomeProdotto.setText("Product Name: "+result[0]);
+            txtPrezzo.setText("Price :"+result[1]+"€");
             txtConnectivityStatus.setText("Connectivity Status: "+result[3]);
-            txtStatoBatteria.setText("Stato batteria: "+result[4]);
+            txtStatoBatteria.setText("Battery status: "+result[4]);
 
             byte[] decodedString = Base64.decode(result[2], Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

@@ -373,7 +373,7 @@ public class ActivityInsert extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 if (result != null) {
-                    Toast.makeText(ActivityInsert.this, "Inserimento riuscito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityInsert.this, "Insertion successful", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ActivityInsert.this, "Error occurred while calling API", Toast.LENGTH_LONG).show();
                 }
