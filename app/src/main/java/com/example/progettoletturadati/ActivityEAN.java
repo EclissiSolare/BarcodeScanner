@@ -301,12 +301,10 @@ public class ActivityEAN extends AppCompatActivity {
         String key = data1;
         DataModel dataModel = new DataModel();
 
-        if (!mData.contains(key)){
+        if (!mData.contains(key)) {
             mData.add(key);
             dataModel.setData1(data1);
         }
-
-
         editText.setText("");
         createAndShowAlertDialog();
     }
